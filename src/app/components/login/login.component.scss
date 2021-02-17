@@ -1,5 +1,37 @@
 .form {
     &__field {
+        box-sizing: border-box;
+        display: block;
         width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        padding: 16px;
+        outline: 0;
+        font-family: inherit;
+        font-size: 0.95em;
+        margin-bottom: 10px;
+        &--input {
+            background: #fff;
+            border-color: #bbb;
+            color: #555;
+        }
+        &--submit {
+            background: darkcyan;
+            border-color: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+
+    &__fieldname {
+        font-family: 'Tahoma';
+        font-size: 17px;
+        margin-bottom: 10px; 
+    }
+
+    &__forgot {
+        text-decoration: none;
+        color: black;
+        text-align: center;
     }
 }

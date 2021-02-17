@@ -1,10 +1,40 @@
 <page-layout>
     <form-page-layout>
-        <div class="form__title">REGISTER</div>
+        <form
+            *ngIf="!isSuccessful"
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+        >
+        <div class="form__fieldname">Name</div>
+        <input 
+            class="form__field form__field--input" 
+            name="name" 
+            type="text"
+            [(ngModel)]="form.name"
+            required
+            #name="ngModel"    
+        />
         <div class="form__fieldname">Email</div>
-        <input class="form__field" name="email" />
+        <input 
+            class="form__field form__field--input" 
+            name="email" 
+            type="text"
+            [(ngModel)]="form.email"
+            required
+            #email="ngModel"    
+        />
         <div class="form__fieldname">Password</div>
-        <input class="form__field" name="password" />
-        <button>Register</button>
+        <input 
+            class="form__field form__field--input" 
+            name="password" 
+            type="password"
+            [(ngModel)]="form.password"
+            required
+            #password="ngModel"    
+        />
+        <button class="form__field form__field--submit" type="submit">Register</button>
+        </form>
     </form-page-layout>
 </page-layout>

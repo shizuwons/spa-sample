@@ -1,0 +1,38 @@
+.form {
+    &__field {
+        &--submit {
+            background: darkcyan;
+            border-color: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+}
+
+.profile {
+    &__text {
+        font-family: 'Tahoma';
+        font-size: 21px;
+        margin-bottom: 10px;
+        &--name {
+            color: green;
+        }
+    }
+
+    &__logout {
+        background: darkcyan;
+        border-color: transparent;
+        color: #fff;
+        cursor: pointer;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        padding: 16px;
+        outline: 0;
+        font-family: inherit;
+        font-size: 0.95em;
+        margin-bottom: 10px;
+    }
+}
