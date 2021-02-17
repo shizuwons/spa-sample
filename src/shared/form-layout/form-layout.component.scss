@@ -1,0 +1,16 @@
+.container {
+    background-color: aquamarine;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__body {
+        width: 500px;
+        height: 250px;
+        background-color: white;
+        border-radius: 20px;
+        &--form {
+            padding: 30px;
+        }
+    }
+}
