@@ -4,11 +4,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Prerequisites
 
-Node
-NPM
-Angular CLI
-IDE or any code editor
-Laravel Sample API (https://github.com/shizuwons/spa-sample-api)
+- Node
+- NPM
+- Angular CLI
+- IDE or any code editor
+- Laravel Sample API (https://github.com/shizuwons/spa-sample-api)
 
 ## Installation
 
