@@ -1,40 +1,55 @@
 <page-layout>
     <form-page-layout>
-        <form
-            *ngIf="!isSuccessful"
-            name="form"
-            (ngSubmit)="f.form.valid && onSubmit()"
-            #f="ngForm"
-            novalidate
-        >
-        <div class="form__fieldname">Name</div>
-        <input 
-            class="form__field form__field--input" 
-            name="name" 
-            type="text"
-            [(ngModel)]="form.name"
-            required
-            #name="ngModel"    
-        />
-        <div class="form__fieldname">Email</div>
-        <input 
-            class="form__field form__field--input" 
-            name="email" 
-            type="text"
-            [(ngModel)]="form.email"
-            required
-            #email="ngModel"    
-        />
-        <div class="form__fieldname">Password</div>
-        <input 
-            class="form__field form__field--input" 
-            name="password" 
-            type="password"
-            [(ngModel)]="form.password"
-            required
-            #password="ngModel"    
-        />
-        <button class="form__field form__field--submit" type="submit">Register</button>
+        <form [formGroup]="form" (ngSubmit)="submit()"> 
+            <div class="form-group">
+                <label class="form__fieldname" for="email">Name</label>
+                <input
+                    formControlName="name"
+                    id="name"
+                    type="text"
+                    class="form__field form__field--input form-control">
+                <div *ngIf="f.name.touched &amp;&amp; f.name.invalid">
+                    <div class="form__field--error" *ngIf="f.name.errors.required">Name is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form__fieldname" for="email">Email</label>
+                <input
+                    formControlName="email"
+                    id="email"
+                    type="text"
+                    class="form__field form__field--input form-control">
+                <div *ngIf="f.email.touched &amp;&amp; f.email.invalid">
+                    <div class="form__field--error" *ngIf="f.email.errors.required">Email is required.</div>
+                    <div class="form__field--error" *ngIf="f.email.errors.email">Please, enter valid email address.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form__fieldname" for="password">Password</label>
+                <input
+                    formControlName="password"
+                    id="password"
+                    type="password"
+                    class="form__field form__field--input form-control">
+                <div class="form__field--error"*ngIf="f.password.touched &amp;&amp; f.password.invalid">
+                <div class="form__field--error"*ngIf="f.password.errors.required">Password is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form__fieldname" for="password">Confirm Password</label>
+                <input
+                    formControlName="confpassword"
+                    id="confpassword"
+                    type="password"
+                    class="form__field form__field--input form-control">
+                <div class="form__field--error"*ngIf="f.confpassword.touched &amp;&amp; f.confpassword.invalid">
+                <div class="form__field--error"*ngIf="f.confpassword.errors.required || form.errors.mismatch">This field is required.</div>
+                </div>
+            </div>
+            <button class="form__field form__field--submit" type="submit" [disabled]="!form.valid">Register</button>
+            <div style="width:100%;text-align:center;">
+                <a class="form__forgot" routerLink="/login" routerLinkActive="active">Back to Login</a>
+            </div>
         </form>
     </form-page-layout>
 </page-layout>

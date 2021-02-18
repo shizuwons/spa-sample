@@ -12,8 +12,10 @@ import { LayoutComponent } from '../shared/layout/layout.component';
 import { FormLayoutComponent } from '../shared/form-layout/form-layout.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { AuthService } from './_services/authentication.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ResetComponent } from './components/reset/reset.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LayoutComponent,
     FormLayoutComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService

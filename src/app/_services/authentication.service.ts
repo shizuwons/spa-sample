@@ -16,7 +16,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(AUTH_API + 'login', {
-    email,
+      email,
       password
     }, httpOptions);
   }
@@ -33,6 +33,14 @@ export class AuthService {
       return this.http.post(AUTH_API + 'forgot_password', {
           email
       }, httpOptions);
+  }
+
+  reset(email: string, token: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'reset', {
+        email,
+        token,
+        password
+    }, httpOptions);
   }
 
   logout(token: string): Observable<any> {

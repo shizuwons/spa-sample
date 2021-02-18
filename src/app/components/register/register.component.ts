@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/authentication.service';
 @Component({
@@ -7,35 +8,44 @@ import { AuthService } from 'src/app/_services/authentication.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  form: any = {
-    username: null,
-    email: null,
-    password: null
-  };
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
+  form = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+    confpassword: new FormControl('', Validators.required)
+  }, this.pwdMatchValidator);
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
-
-  onSubmit(): void {
-    const { name, email, password } = this.form;
+   
+  get f(){
+    return this.form.controls;
+  }
+   
+  submit(){
+    let name = this.form.value.name;
+    let email = this.form.value.email;
+    let password = this.form.value.password;
 
     this.authService.register(name, email, password).subscribe(
       data => {
-        console.log(data);
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
+        alert('Account successfully registered!');
         this.router.navigate(['/login']);
       },
       err => {
-        this.errorMessage = "";
-        this.isSignUpFailed = true;
+        console.log(err);
       }
-    );
+    )
   }
 
+  pwdMatchValidator(frm: FormGroup) {
+    return frm.value.password === frm.value.confpassword
+       ? null : {'mismatch': true};
+  }
 }

@@ -1,0 +1,21 @@
+<page-layout>
+    <form-page-layout>
+        <form
+            name="form"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            #f="ngForm"
+            novalidate
+        >
+        <div class="form__fieldname">New Password</div>
+        <input 
+            class="form__field form__field--input" 
+            name="password" 
+            type="password"
+            [(ngModel)]="form.password"
+            required
+            #password="ngModel"    
+        />
+        <button class="form__field form__field--submit" type="submit">Reset Password</button>
+        </form>
+    </form-page-layout>
+</page-layout>

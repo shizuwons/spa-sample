@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/authentication.service';
 
 @Component({
@@ -7,23 +9,38 @@ import { AuthService } from 'src/app/_services/authentication.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
-  form: any = {
-    email: null
-  };
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email])
+  });
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
 
-  onSubmit(): void {
-    const { email } = this.form;
+  ngOnInit() {
+    if(localStorage.getItem('login_token') !== null) {
+      //this.isLoggedIn = true;
+      this.router.navigate(['/profile']);
+    }
+  }
+   
+  get f(){
+    return this.form.controls;
+  }
+   
+  submit(){
+    let email = this.form.value.email;
 
     this.authService.forgot(email).subscribe(
       data => {
-        console.log(data);
+        localStorage.setItem('forgot_email', email);
+        alert('An email has been sent to reset your password.');
       },
       err => {
         console.log(err);
       }
     )
   }
-
 }

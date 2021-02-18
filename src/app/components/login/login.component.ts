@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/authentication.service';
 
@@ -8,15 +9,16 @@ import { AuthService } from 'src/app/_services/authentication.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form: any = {
-    email: null,
-    password: null
-  };
-  // isLoggedIn = false;
-  // isLoginFailed = false;
-  errorMessage = '';
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required)
+  });
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
     if(localStorage.getItem('login_token') !== null) {
@@ -24,15 +26,18 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/profile']);
     }
   }
-
-  onSubmit(): void {
-    const { email, password } = this.form;
+   
+  get f(){
+    return this.form.controls;
+  }
+   
+  submit(){
+    let email = this.form.value.email;
+    let password = this.form.value.password;
 
     this.authService.login(email, password).subscribe(
       data => {
-        // this.isLoginFailed = false;
-        // this.isLoggedIn = true;
-        console.log(data.data.token);
+        // console.log(data.data.token);
         localStorage.setItem('login_token', data.data.token);
         localStorage.setItem('username', data.data.user.name);
         this.router.navigate(['/profile']);
@@ -42,9 +47,4 @@ export class LoginComponent implements OnInit {
       }
     )
   }
-
-  reloadPage(): void {
-    window.location.reload();
-  }
-
 }
